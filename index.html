@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kab Khao — Reporte de Avances</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F05A1A;
+    --green: #1A5C35;
+    --crimson: #C0111F;
+    --lilac: #D4A5C9;
+    --lime: #D4E030;
+    --cream: #F7F2E8;
+    --dark: #4A4A4A;
+    --mid: #5A5A5A;
+
+    --status-ok: #1A5C35;
+    --status-ok-bg: #d4f0e2;
+    --status-med: #E07010;
+    --status-med-bg: #fdecd6;
+    --status-crit: #C0111F;
+    --status-crit-bg: #fde0e0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--green);
+    color: var(--cream);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    padding: 48px 56px 40px;
+    gap: 32px;
+  }
+
+  .header-left {}
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 12px;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--cream);
+    letter-spacing: -2px;
+  }
+
+  .header-title span {
+    color: var(--orange);
+  }
+
+  .header-subtitle {
+    margin-top: 16px;
+    font-size: 14px;
+    color: rgba(247,242,232,0.65);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-right {
+    text-align: right;
+    padding-bottom: 4px;
+  }
+
+  .header-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .header-period {
+    font-size: 13px;
+    color: rgba(247,242,232,0.55);
+    margin-top: 4px;
+  }
+
+  /* ─── STRIPE ─── */
+  .stripe {
+    height: 2px;
+    background: var(--orange);
+    opacity: 0.5;
+    margin: 0 56px;
+  }
+
+  /* ─── TIMELINE BANNER ─── */
+  .timeline-banner {
+    background: transparent;
+    color: var(--dark);
+    border-top: 1px solid #e8e4dc;
+    border-bottom: 1px solid #e8e4dc;
+    padding: 28px 56px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .timeline-item {
+    padding: 0 24px 0 0;
+    border-right: 1px solid #e8e4dc;
+    position: relative;
+  }
+
+  .timeline-item:last-child { border-right: none; padding-right: 0; }
+  .timeline-item:not(:first-child) { padding-left: 24px; }
+
+  .tl-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #777;
+    margin-bottom: 6px;
+  }
+
+  .tl-value {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1a1a1a;
+  }
+
+  .tl-sub {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* ─── EXPANSION SECTION ─── */
+  .main-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .section-line {
+    height: 1px;
+    background: var(--orange);
+    opacity: 0.25;
+    flex: 1;
+  }
+
+  /* ─── EXPANSION BLOCK ─── */
+  .expansion-block {
+    background: var(--green);
+    color: var(--cream);
+    border-radius: 3px;
+    padding: 36px 40px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .expansion-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--orange);
+  }
+
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 20px;
+    padding-left: 16px;
+  }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding-left: 16px;
+  }
+
+  .exp-item {}
+
+  .exp-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--lime);
+    margin-bottom: 6px;
+  }
+
+  .exp-item-text {
+    font-size: 14px;
+    color: rgba(247,242,232,0.85);
+    line-height: 1.55;
+  }
+
+  .exp-tag {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+    margin-top: 8px;
+  }
+
+  .exp-tag.pending {
+    background: rgba(247,242,232,0.15);
+    color: var(--lime);
+  }
+
+  /* ─── AREA CARDS ─── */
+  .areas-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .area-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: grid;
+    grid-template-columns: 6px 1fr;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .area-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+  }
+
+  .area-card-side {
+    border-radius: 12px 0 0 12px;
+  }
+
+  .area-card-side.ok    { background: var(--status-ok); }
+  .area-card-side.medio { background: var(--status-med); }
+  .area-card-side.critico { background: var(--status-crit); }
+
+  .area-card-inner {
+    padding: 20px 24px 22px;
+  }
+
+  .area-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .area-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2A2A2A;
+    line-height: 1.2;
+  }
+
+  .area-responsible {
+    font-size: 11px;
+    color: #999;
+    margin-top: 3px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .status-badge {
+    flex-shrink: 0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 3px;
+  }
+
+  .status-badge.ok     { background: var(--status-ok-bg);  color: var(--status-ok); }
+  .status-badge.medio  { background: var(--status-med-bg);  color: var(--status-med); }
+  .status-badge.critico{ background: var(--status-crit-bg); color: var(--status-crit); }
+
+  .area-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid #f0ece4;
+    padding-top: 16px;
+  }
+
+  .area-section {
+    padding: 0 20px 0 0;
+    border-right: 1px dashed #e8e4dc;
+  }
+
+  .area-section:last-child {
+    border-right: none;
+    padding-right: 0;
+    padding-left: 20px;
+  }
+
+  .area-section:not(:first-child):not(:last-child) {
+    padding-left: 20px;
+  }
+
+  .area-section-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #bbb;
+    margin-bottom: 8px;
+  }
+
+  .area-section-content {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .area-section-content ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .area-section-content ul li {
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+
+  .area-section-content ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* ─── BLOCKER PILL ─── */
+  .blocker-pill {
+    display: inline-block;
+    background: var(--status-crit-bg);
+    color: var(--status-crit);
+    padding: 2px 9px;
+    border-radius: 3px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  .blocker-pill.med {
+    background: var(--status-med-bg);
+    color: var(--status-med);
+  }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #555;
+  }
+
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-dot.ok     { background: var(--status-ok); }
+  .legend-dot.medio  { background: var(--status-med); }
+  .legend-dot.critico{ background: var(--status-crit); }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: transparent;
+    border-top: 3px solid var(--orange);
+    padding: 24px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── EXPANSION MAP ─── */
+  .exp-map-wrap {
+    position: relative;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .exp-center-node {
+    background: var(--green);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 18px 40px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    border: 3px solid var(--orange);
+    min-width: 220px;
+  }
+
+  .ecn-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--lime);
+    margin-bottom: 4px;
+  }
+
+  .ecn-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .ecn-sub {
+    font-size: 12px;
+    color: rgba(247,242,232,0.6);
+    margin-top: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* vertical connector line from center node to grid */
+  .exp-map-wrap::after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 28px;
+    background: var(--orange);
+    opacity: 0.4;
+    margin: 0 auto;
+  }
+
+  .exp-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    position: relative;
+  }
+
+  /* top border connector per card */
+  .exp-cards-grid::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 25%; right: 25%;
+    height: 1px;
+    background: rgba(240,90,26,0.3);
+  }
+
+  .exp-node-card {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    background: white;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .exp-node-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+  }
+
+  .enc-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    color: white;
+  }
+
+  .enc-icon { font-size: 18px; line-height: 1; flex-shrink: 0; }
+
+  .enc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .enc-body {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* Ingenierías chips */
+  .ing-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .ing-chip {
+    flex: 1;
+    min-width: 110px;
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .ing-chip.hvac {
+    background: #e8f5ee;
+    border-left: 3px solid var(--green);
+  }
+
+  .ing-chip.rest {
+    background: #ede8f5;
+    border-left: 3px solid #5C3D8F;
+  }
+
+  .ic-top {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #555;
+  }
+
+  .ic-date {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  .ic-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+  }
+
+  /* subtask rows */
+  .subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .subtask {
+    font-size: 12.5px;
+    padding: 5px 8px;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .subtask.pend { background: #fff8ec; color: #7A4500; }
+  .subtask.crit { background: #fff0f0; color: #9A0010; }
+
+  /* enc tags */
+  .enc-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+
+  .enc-tag.ok      { background: #d4f0e2; color: var(--green); }
+  .enc-tag.pending { background: #e8e5f0; color: #5C3D8F; }
+  .enc-tag.warn    { background: #fff0d9; color: #994400; }
+  .enc-tag.crit    { background: #fde0e0; color: var(--crimson); }
+
+  @media (max-width: 768px) {
+    .header-inner { grid-template-columns: 1fr; padding: 36px 28px 28px; }
+    .timeline-banner { grid-template-columns: 1fr 1fr; gap: 16px; padding: 24px 28px; }
+    .timeline-item { border-right: none; padding: 0 0 12px 0 !important; }
+    .main-wrap { padding: 32px 20px 60px; }
+    .area-body { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .exp-cards-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-eyebrow">Reporte Quincenal de Avances — Expansión</div>
+      <div class="header-title">Kab <span>Khao</span></div>
+      <div class="header-subtitle">Thai Eatery · Proyecto de apertura nueva sucursal</div>
+    </div>
+    <div class="header-right">
+      <div class="header-date">17 de abril, 2026</div>
+      <div class="header-period">Periodo: Apr 17 – May 1, 2026</div>
+    </div>
+  </div>
+</header>
+<div class="stripe"></div>
+
+<!-- TIMELINE -->
+<div class="timeline-banner">
+  <div class="timeline-item">
+    <div class="tl-label">Inicio de obra</div>
+    <div class="tl-value">Lun 20 Abr 2026</div>
+    <div class="tl-sub">Con contratista confirmado</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-label">Duración estimada</div>
+    <div class="tl-value">10 semanas de obra</div>
+    <div class="tl-sub">+ 1 sem. pre-apertura</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-label">Pre-apertura objetivo</div>
+    <div class="tl-value">6 de julio, 2026</div>
+    <div class="tl-sub">Fecha meta</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-label">Semanas restantes</div>
+    <div class="tl-value">~11 semanas</div>
+    <div class="tl-sub">Desde inicio de obra</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main-wrap">
+
+  <!-- EXPANSIÓN: RESUMEN DE PROYECTO -->
+  <div class="section-header">
+    <div class="section-label">Expansión — Obra &amp; Proyecto</div>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- MAPA DE EXPANSIÓN -->
+  <div class="exp-map-wrap">
+    <div class="exp-center-node">
+      <div class="ecn-eyebrow">Expansión</div>
+      <div class="ecn-title">Avance General</div>
+      <div class="ecn-sub">Inicio de obra: Lun 20 Abr</div>
+    </div>
+    <div class="exp-cards-grid">
+
+      <div class="exp-node-card">
+        <div class="enc-header" style="background:var(--green);">
+          <span class="enc-icon">🏗</span>
+          <span class="enc-title">Obras &amp; Contratista</span>
+        </div>
+        <div class="enc-body">
+          <p>Inicio confirmado <strong>lunes 20 de abril</strong> con contratista.</p>
+          <p>Siguiente semana: isométricos para fabricación de equipos de acero inoxidable.</p>
+          <div class="enc-tag ok">En tiempo</div>
+        </div>
+      </div>
+
+      <div class="exp-node-card">
+        <div class="enc-header" style="background:#5C3D8F;">
+          <span class="enc-icon">📐</span>
+          <span class="enc-title">Ingenierías &amp; Proyecto</span>
+        </div>
+        <div class="enc-body">
+          <p>Pago de ingenierías avanzado. Proyecto completo requerido para que administración apruebe nueva salida de HVAC y jardineras/bancas frontales.</p>
+          <div class="ing-chips">
+            <div class="ing-chip hvac">
+              <div class="ic-top">HVAC</div>
+              <div class="ic-date">~19–20 Abr</div>
+              <div class="ic-badge">Antes</div>
+            </div>
+            <div class="ing-chip rest">
+              <div class="ic-top">Proyecto completo</div>
+              <div class="ic-date">~22 Abr</div>
+              <div class="ic-badge">Est.</div>
+            </div>
+          </div>
+          <div class="enc-tag pending">Pendiente: aprobación admin.</div>
+        </div>
+      </div>
+
+      <div class="exp-node-card">
+        <div class="enc-header" style="background:var(--orange);">
+          <span class="enc-icon">🍳</span>
+          <span class="enc-title">Equipos de Cocina</span>
+        </div>
+        <div class="enc-body">
+          <p>Juntas con <strong>Amy</strong> realizadas sobre equipos.</p>
+          <div class="subtask-list">
+            <div class="subtask pend">⏳ Visita para ver wok con San Son</div>
+            <div class="subtask pend">⏳ Definir modelo de cafetera</div>
+          </div>
+          <div class="enc-tag warn">2 pendientes por resolver</div>
+        </div>
+      </div>
+
+      <div class="exp-node-card">
+        <div class="enc-header" style="background:var(--crimson);">
+          <span class="enc-icon">🪑</span>
+          <span class="enc-title">Mobiliario &amp; Vajillas</span>
+        </div>
+        <div class="enc-body">
+          <p>Cotización <strong>aún no recibida</strong>. Debe definirse a la brevedad para no comprometer la apertura.</p>
+          <div class="subtask-list">
+            <div class="subtask crit">🔴 Recibir cotización de mobiliario</div>
+            <div class="subtask crit">🔴 Recibir cotización de vajillas</div>
+          </div>
+          <div class="enc-tag crit">⚠ Urgente</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ÁREA REPORTS -->
+  <div class="section-header">
+    <div class="section-label">Avances por Área</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot ok"></div> Sin atorones</div>
+    <div class="legend-item"><div class="legend-dot medio"></div> Atorones medios</div>
+    <div class="legend-item"><div class="legend-dot critico"></div> Crítico / Puede atrasar apertura</div>
+  </div>
+
+  <div class="areas-grid">
+
+    <!-- 1. SISTEMAS Y TECNOLOGÍA — VERDE -->
+    <div class="area-card">
+      <div class="area-card-side ok"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Sistemas y Tecnología</div>
+            <div class="area-responsible">Responsable de área</div>
+          </div>
+          <div class="status-badge ok">● Sin atorones</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">2 cotizaciones de CCTV, redes, audio y alarmas. Propuesta real para meseros con dispositivos integrados al POS.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content" style="color:var(--status-ok); font-weight:500;">Ninguno reportado.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Confirmar desarrollo para dispositivos de meseros</li>
+                <li>Confirmar proveedor de redes, CCTV y audio</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. GASTRONOMÍA — NARANJA -->
+    <div class="area-card">
+      <div class="area-card-side medio"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Gastronomía</div>
+            <div class="area-responsible">Amy (menú)</div>
+          </div>
+          <div class="status-badge medio">● Atorón medio</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">Concepto de servicio definido. Amy ya trabaja en el desarrollo del menú.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill med">Faltan insumos para iniciar pruebas esta semana</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Realizar pruebas de menú</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FINANZAS — ROJO -->
+    <div class="area-card">
+      <div class="area-card-side critico"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Finanzas</div>
+            <div class="area-responsible">Jessica Ventura</div>
+          </div>
+          <div class="status-badge critico">● Crítico</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content" style="color:var(--status-crit); font-weight:500;">Sin avances reportados en este periodo.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill">Plantilla gerencial incompleta — no puede capacitar</span><br>
+              <span class="blocker-pill" style="margin-top:5px;">POS no instalado — sin revisiones posibles</span><br>
+              <span class="blocker-pill" style="margin-top:5px;">Sin fecha de apertura confirmada</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Confirmar fecha de apertura</li>
+                <li>Avanzar checklist una vez definido el equipo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CULTURA — NARANJA -->
+    <div class="area-card">
+      <div class="area-card-side medio"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Cultura</div>
+            <div class="area-responsible">Responsable de área</div>
+          </div>
+          <div class="status-badge medio">● Atorón medio</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">Plan de integración para el equipo listo; se implementará antes de la apertura.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill med">Depende de la contratación de personal (RR.HH.)</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Revisar con RR.HH. y Operaciones lineamientos de uniforme en comidas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. MARKETING — NARANJA -->
+    <div class="area-card">
+      <div class="area-card-side medio"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Marketing</div>
+            <div class="area-responsible">Laura Aviña</div>
+          </div>
+          <div class="status-badge medio">● Atorón medio</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">Contenido de prelanzamiento levantado. Cuenta de Gmail solicitada para Google Business; se espera la siguiente semana.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill med">Google requiere branding en local para aprobar la tienda</span><br>
+              <span class="blocker-pill med" style="margin-top:5px;">Menú cerrado necesario para shooting de fotos</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Seguimiento cuenta de Google (ir al tener branding en local)</li>
+                <li>Crear redes sociales</li>
+                <li>Planear shooting de fotos del menú</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. CAPITAL HUMANO — ROJO -->
+    <div class="area-card">
+      <div class="area-card-side critico"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Capital Humano</div>
+            <div class="area-responsible">Cecilia Tovar</div>
+          </div>
+          <div class="status-badge critico">● Crítico</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">Organigrama y propuesta de horarios estructurados y en proceso de validación, alineados a necesidades operativas.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill">Sin aprobación de horarios y organigrama — bloquea perfiles y reclutamiento</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Autorizar horarios y organigrama</li>
+                <li>Definir estructura salarial</li>
+                <li>Desarrollar perfiles de puesto</li>
+                <li>Iniciar estrategia de reclutamiento</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. CALIDAD — VERDE -->
+    <div class="area-card">
+      <div class="area-card-side ok"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Calidad</div>
+            <div class="area-responsible">Romeo Ortiz</div>
+          </div>
+          <div class="status-badge ok">● Sin atorones</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Plan de tiempo de servicio (3 min barra → mesa) desarrollado</li>
+                <li>Temperatura teórica de platillos calientes definida (validar con Amy y DG)</li>
+                <li>Concepto "Platillo Perfecto" listo, pendiente validación con Amy</li>
+              </ul>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill med">Tabla de caducidades de insumos frescos no compartida aún</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Tabla de insumos y ayudas visuales de ensamble</li>
+                <li>Puntos de inspección de "Limpieza Visual"</li>
+                <li>Borrador de ayuda visual del Plato Perfecto</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. OPERACIONES — ROJO -->
+    <div class="area-card">
+      <div class="area-card-side critico"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Operaciones</div>
+            <div class="area-responsible">Responsable de área</div>
+          </div>
+          <div class="status-badge critico">● Crítico</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">Seguimiento y retroalimentación continua con RR.HH. sobre horarios y organigrama — base para la ejecución operativa.</div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill">Bloqueado hasta que RR.HH. tenga organigrama y horarios autorizados</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Cerrar y autorizar organigrama y horarios</li>
+                <li>Desarrollar perfiles de puesto</li>
+                <li>Validar horarios vs. operación real</li>
+                <li>Definir necesidades operativas por puesto</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. LEGAL — ROJO -->
+    <div class="area-card">
+      <div class="area-card-side critico"></div>
+      <div class="area-card-inner">
+        <div class="area-card-top">
+          <div>
+            <div class="area-name">Legal</div>
+            <div class="area-responsible">Responsable legal</div>
+          </div>
+          <div class="status-badge critico">● Crítico</div>
+        </div>
+        <div class="area-body">
+          <div class="area-section">
+            <div class="area-section-title">Avance general</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Certificado Único de uso de suelo en mano</li>
+                <li>CFE a nombre propio en proceso</li>
+                <li>Art. 62 SEDUVI liberado — faltan 2 VoBos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Atorones</div>
+            <div class="area-section-content">
+              <span class="blocker-pill">Faltan VoBos de INBAL e INAH para liberar el Art. 62</span><br>
+              <span class="blocker-pill" style="margin-top:5px;">Firma de AVAL en contrato pendiente por tiempos del apoderado</span>
+            </div>
+          </div>
+          <div class="area-section">
+            <div class="area-section-title">Próximos 2 semanas</div>
+            <div class="area-section-content">
+              <ul>
+                <li>Completar cambio de moral en CFE</li>
+                <li>Seguimiento a INAH e INBAL para VoBos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /areas-grid -->
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">Kab Khao · Thai Eatery</div>
+  <div class="footer-note">Reporte quincenal · Expansión · Próximo reporte: 1 de mayo, 2026</div>
+</footer>
+
+</body>
+</html>
